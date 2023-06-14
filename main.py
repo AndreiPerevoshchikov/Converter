@@ -4,6 +4,8 @@ from customtkinter import filedialog as fd
 import pathlib
 from PIL import Image, ImageTk
 from itertools import count, cycle
+import os
+import pandas as pd
 
 
 class ImageLabel(CTkLabel):
@@ -60,6 +62,15 @@ def convert():
     CTkLabel(root, text='Конвертация завершена', font=('Arial', 15)).pack(pady=10)
 
 
+def open_csv_file():
+    file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+    if file_path:
+        df = pd.read_csv(file_path)
+        excel_file_path = os.path.splitext(file_path)[0] + ".xlsx"
+        df.to_excel(excel_file_path, index=False)
+        os.startfile(excel_file_path)  # Открываем XLSX файл в Excel
+
+
 if __name__ == '__main__':
 
     set_appearance_mode("dark")
@@ -83,5 +94,7 @@ if __name__ == '__main__':
     ePath.pack(pady=10)
 
     btnConvert = CTkButton(root, text='Конвертировать', font=('Arial', 15), command=convert).pack(pady=10)
+    open_button = CTkButton(root, text="Открыть CSV файл", command=open_csv_file)
+    open_button.pack()
 
     root.mainloop()
