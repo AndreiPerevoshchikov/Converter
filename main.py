@@ -60,14 +60,18 @@ def convert():
     CTkLabel(root, text='Конвертация завершена', font=('Arial', 15)).pack(pady=10)
 
 
-# customtkinter.set_appearance_mode("dark")
-# customtkinter.set_default_color_theme("dark-blue")
-
-
 if __name__ == '__main__':
+
+    set_appearance_mode("dark")
+    set_default_color_theme("dark-blue")
+
     root = CTk()
+    lb = ImageLabel(root, text="")
+    lb.pack()
+    lb.load('test.gif')
+
     root.title('Конвертер json в csv')
-    root.geometry('800x400+400+400')
+    root.geometry('600x600+400+400')
     root.resizable(width=False, height=False)
 
     CTkButton(root, text='Выбрать json файл', font=('Arial', 15), command=callback).pack(pady=10)
@@ -80,7 +84,4 @@ if __name__ == '__main__':
 
     btnConvert = CTkButton(root, text='Конвертировать', font=('Arial', 15), command=convert).pack(pady=10)
 
-    lb = ImageLabel(root)
-    lb.pack()
-    lb.load('test.gif')
     root.mainloop()
